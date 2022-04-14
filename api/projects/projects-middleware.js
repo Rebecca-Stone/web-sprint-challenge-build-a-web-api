@@ -1,7 +1,4 @@
-// add middleware here related to projects
 const Projects = require("../projects/projects-model");
-
-// - [ ] Write at least two middleware functions for this API, and consume them in the proper places of your code.
 
 function logger(req, res, next) {
   req.timestamp = new Date();
@@ -29,18 +26,22 @@ function validateProjectId(req, res, next) {
 }
 
 function validateProject(req, res, next) {
-  //   let { name, description } = req.body;
+  let { name, description, completed } = req.body;
   if (
-    typeof req.body.name != "string" ||
-    req.body.name.trim() == "" ||
-    typeof req.body.description != "string" ||
-    req.body.description.trim() == ""
+    typeof completed != "boolean" ||
+    typeof name != "string" ||
+    name.trim() == "" ||
+    typeof description != "string" ||
+    description.trim() == ""
   ) {
     res.status(400).json({ message: "missing some fields" });
     return;
   }
-  req.project = { name: req.body.name, description: req.body.description, completed: true };
-//   console.log(req.project);
+  req.project = {
+    name: name,
+    description: description,
+    completed: completed,
+  };
   next();
 }
 

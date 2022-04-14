@@ -47,6 +47,15 @@ router.post("/", validateProject, (req, res) => {
 //   - Returns the updated project as the body of the response.
 //   - If there is no project with the given `id` it responds with a status code 404.
 //   - If the request body is missing any of the required fields it responds with a status code 400.
+router.put("/:id", validateProject, validateProjectId, (req, res) => {
+  Projects.update(req.params.id, req.project)
+    .then(() => {
+      res.status(200).json(req.project);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
 
 // - [ ] `[DELETE] /api/projects/:id`
 //   - Returns no response body.
