@@ -1,14 +1,14 @@
 const Projects = require("../projects/projects-model");
 
-function logger(req, res, next) {
-  req.timestamp = new Date();
-  console.log(`
-  METHOD: ${req.method}, 
-  URL: ${req.baseUrl}, 
-  TS: ${req.timestamp}
-  `);
-  next();
-}
+// function logger(req, res, next) {
+//   req.timestamp = new Date();
+//   console.log(`
+//   METHOD: ${req.method}, 
+//   URL: ${req.baseUrl}, 
+//   TS: ${req.timestamp}
+//   `);
+//   next();
+// }
 
 function validateProjectId(req, res, next) {
   Projects.get(req.params.id)
@@ -46,7 +46,7 @@ function validateProject(req, res, next) {
 }
 
 module.exports = {
-  logger,
+  // logger,
   validateProjectId,
   validateProject,
 };

@@ -3,7 +3,7 @@ const express = require("express");
 const Projects = require("./projects-model");
 
 const {
-  logger,
+  // logger,
   validateProjectId,
   validateProject,
 } = require("./projects-middleware");
@@ -13,7 +13,9 @@ const router = express.Router();
 // - [ ] `[GET] /api/projects`
 //   - Returns an array of projects as the body of the response.
 //   - If there are no projects it responds with an empty array.
-router.get("/", logger, (req, res) => {
+router.get("/",
+  // logger,
+  (req, res) => {
   Projects.get()
     .then((posts) => {
       res.status(200).json(posts);
