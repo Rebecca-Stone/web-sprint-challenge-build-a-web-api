@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const cors = require("cors");
@@ -11,7 +11,7 @@ server.use(morgan("dev"));
 server.use(cors());
 
 server.get("/", (req, res, next) => {
-  console.log('sanity check')
+  console.log("sanity check");
 });
 
 // Configure your server here
