@@ -1,7 +1,12 @@
 const express = require("express");
+// third party middleware
 const helmet = require("helmet");
 const morgan = require("morgan");
 const cors = require("cors");
+
+// these are for the router 
+const actionRouter = require('./actions/actions-router');
+const projectRouter = require('./projects/projects-router');
 
 const server = express();
 
@@ -10,9 +15,15 @@ server.use(helmet());
 server.use(morgan("dev"));
 server.use(cors());
 
-server.get("/", (req, res, next) => {
-  console.log("sanity check");
+// put the api route here
+server.use("/api/actions", actionRouter);
+server.use("/api/projects", projectRouter);
+
+server.get("/", (req, res) => {
+  res.send(`<h1>sanity check</h1>`);
 });
+
+
 
 // Configure your server here
 // Build your actions router in /api/actions/actions-router.js
