@@ -1,17 +1,4 @@
-// add middlewares here related to actions
 const Actions = require("../actions/actions-model");
-
-// - [ ] Write at least two middleware functions for this API, and consume them in the proper places of your code.
-
-// function logger(req, res, next) {
-//   req.timestamp = new Date();
-//   console.log(`
-//   METHOD: ${req.method},
-//   URL: ${req.baseUrl},
-//   TS: ${req.timestamp}
-//   `);
-//   next();
-// }
 
 function validateActionId(req, res, next) {
   Actions.get(req.params.id)
@@ -40,12 +27,17 @@ function validateAction(req, res, next) {
     res.status(400).json({ message: "some fields are missing" });
     return;
   }
-  req.action = { id: id, project_id: project_id, description: description, notes: notes, completed: completed };
+  req.action = {
+    id: id,
+    project_id: project_id,
+    description: description,
+    notes: notes,
+    completed: completed,
+  };
   next();
 }
 
 module.exports = {
-  // logger,
   validateActionId,
   validateAction,
 };
