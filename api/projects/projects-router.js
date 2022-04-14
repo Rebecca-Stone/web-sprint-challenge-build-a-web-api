@@ -60,9 +60,27 @@ router.put("/:id", validateProject, validateProjectId, (req, res) => {
 // - [ ] `[DELETE] /api/projects/:id`
 //   - Returns no response body.
 //   - If there is no project with the given `id` it responds with a status code 404.
+router.delete("/:id", validateProjectId, (req, res) => {
+  Projects.remove(req.existingProject.id)
+    .then(() => {
+      res.status(200).json(req.existingProject);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
 
 // - [ ] `[GET] /api/projects/:id/actions`
 //   - Returns an array of actions (could be empty) belonging to a project with the given `id`.
 //   - If there is no project with the given `id` it responds with a status code 404.
+router.get("/:id/actions", validateProjectId, (req, res) => {
+  Projects.getProjectActions(req.params.id)
+    .then((projects) => {
+      res.status(200).json(projects);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
 
 module.exports = router;
