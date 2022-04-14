@@ -14,17 +14,38 @@ function logger(req, res, next) {
 }
 
 function validateProjectId(req, res, next) {
-  Projects.get(req.params.id).then((project) => {
-    if (project) {
-      req.existingProject = project;
-      next();
-    } else {
-      res.status(404).json({ message: "project not found" });
-    }
-  });
+  Projects.get(req.params.id)
+    .then((project) => {
+      if (project) {
+        req.existingProject = project;
+        next();
+      } else {
+        res.status(404).json({ message: "project not found" });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+function validateProject(req, res, next) {
+  //   let { name, description } = req.body;
+  if (
+    typeof req.body.name != "string" ||
+    req.body.name.trim() == "" ||
+    typeof req.body.description != "string" ||
+    req.body.description.trim() == ""
+  ) {
+    res.status(400).json({ message: "missing some fields" });
+    return;
+  }
+  req.project = { name: req.body.name, description: req.body.description, completed: true };
+//   console.log(req.project);
+  next();
 }
 
 module.exports = {
   logger,
   validateProjectId,
+  validateProject,
 };
